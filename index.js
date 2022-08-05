@@ -7,6 +7,7 @@ io.on("connection", socket => {
 
     socket.on('newinfo', data => {
         console.log(data);
+        io.emit('info', data);
     })
 
     socket.on("disconnect", () => {
