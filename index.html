@@ -11,6 +11,7 @@
     
     <h1 id="result">Resultado:</h1>
     <script>
+        let socket = io.connect('https://server-solares-solaris.herokuapp.com');
         socket.on('info', function(data) {
             document.getElementById('result').innerHTML = "Resultado: " + data;
         });
