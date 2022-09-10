@@ -15,7 +15,7 @@
     <script>
         let socket = io.connect('https://server-solares-solaris.herokuapp.com');
         socket.on('info', function(data) {
-            document.getElementById('result').innerHTML = "Resultado: " + `<pre>${data}</pre>`;
+            document.getElementById('result').innerHTML = "Resultado: " + `<pre>{JSON.stringify(data, null, 2)}</pre>`;
         });
     </script>
 </body>
