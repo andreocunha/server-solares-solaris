@@ -1,3 +1,4 @@
+const { headingTo } =  require('geolocation-utils');
 const PORT = process.env.PORT || 4000;
 const io = require('socket.io')(PORT, { cors: { origin: '*' } });
 
@@ -32,7 +33,8 @@ function convertStringToObject(array) {
             lat: element[1],
             lng: element[2],
             speed: element[3],
-            date: element[4]
+            date: element[4],
+            rotate: element[5]
         }
         array2.push(obj);
     });
@@ -46,8 +48,21 @@ function verifyData(data) {
     array.forEach(element => {
         let index = dbArray.findIndex(x => x[0] === element[0]);
         if (index === -1) {
+            // add rotate to element
+            element.push(0);
             dbArray.push(element);
         } else {
+            // const rotate = headingTo({lat: 51, lon: 4}, {lat: 51.0006, lon: 4.001}) ;
+            const rotate = headingTo(
+                { 
+                    lat: parseFloat(dbArray[index][1]),
+                    lon: parseFloat(dbArray[index][2])
+                }, 
+                { 
+                    lat: parseFloat(element[1]),
+                    lon: parseFloat(element[2])
+                });
+            element.push(rotate);
             dbArray[index] = element;
         }
     });
@@ -56,7 +71,8 @@ function verifyData(data) {
 
 // function to simulate new update data every 2 seconds
 function updateData(randomData) {
-    let array = convertStringToArray(randomData);
+    // let array = convertStringToArray(randomData);
+    let array = verifyData(randomData);
     dbObject = convertStringToObject(array);
     io.emit('info', dbObject);
 }
