@@ -34,7 +34,8 @@ function convertStringToObject(array) {
             lng: element[2],
             speed: element[3],
             date: element[4],
-            rotate: element[5]
+            rotate: element[5],
+            updateAt: element[6]
         }
         array2.push(obj);
     });
@@ -50,6 +51,9 @@ function verifyData(data) {
         if (index === -1) {
             // add rotate to element
             element.push(0);
+
+            // current date time in brazil to element
+            element.push(new Date());
             dbArray.push(element);
         } else {
             // const rotate = headingTo({lat: 51, lon: 4}, {lat: 51.0006, lon: 4.001}) ;
@@ -63,6 +67,7 @@ function verifyData(data) {
                     lon: parseFloat(element[2])
                 });
             element.push(rotate);
+            element.push(new Date());
             dbArray[index] = element;
         }
     });
@@ -96,7 +101,7 @@ io.on("connection", socket => {
     }, 4000);
 
     socket.on('newinfo', data => {
-        console.log(data);
+        // console.log(data);
         let result = verifyData(data);
         dbObject = convertStringToObject(result);
         io.emit('info', dbObject);
