@@ -89,10 +89,15 @@ function updateData(randomData) {
 //     updateData(randomData);
 // }, 2000);
 
+ // re send the data to the client every 1 minute
+ setInterval(() => {
+    io.emit("info", dbObject);
+}, 60000);
+
 io.on("connection", socket => {
     console.log("USUARIO: " + socket.id);
-    // let result = verifyData(dado);
-    // dbObject = convertStringToObject(result);
+    // let randomData = `[00,-22.90${Math.floor(Math.random() * 10)}807,-42.034${Math.floor(Math.random() * 10)}74,00.2];[03,-22.905594,-42.034946,00.4];[04,-22.907294,-42.034946,00.4];01/01/99 00:4${Math.floor(Math.random() * 10)}:02`
+    // updateData(randomData);
 
     // wait 5 seconds to send the data to the client
     setTimeout(() => {
