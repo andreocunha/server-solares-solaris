@@ -33,9 +33,10 @@ function convertStringToObject(array) {
             lat: element[1],
             lng: element[2],
             speed: element[3],
-            date: element[4],
-            rotate: element[5],
-            updateAt: element[6]
+            sos: element[4],
+            date: element[5],
+            rotate: element[6],
+            updateAt: element[7]
         }
         array2.push(obj);
     });
