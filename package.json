@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.18.2",
     "geolocation-utils": "^1.0.0",
+    "http": "^0.0.1-security",
     "socket.io": "^2.5.0"
   },
   "devDependencies": {
