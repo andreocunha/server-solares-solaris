@@ -1,24 +1,6 @@
 const { headingTo } =  require('geolocation-utils');
-const express = require('express');
-const app = express();
-const http = require('http');
-const server = http.createServer(app);
-const io = require('socket.io')(server, {
-    cors: {
-        origin: '*',
-    }
-});
 const PORT = process.env.PORT || 4000;
-
-// const io = require("socket.io")(PORT, {
-//     cors: {
-//         origin: '*',
-//     }
-// });
-
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-});
+const io = require('socket.io')(PORT, { cors: { origin: '*' } });
 
 let dbArray = [];
 let dbObject = [];
@@ -139,9 +121,4 @@ io.on("connection", socket => {
     socket.on("disconnect", () => {
         console.log("USUARIO DESCONECTADO: " + socket.id);
     });
-});
-
-
-server.listen(PORT, () => {
-    console.log('listening on *:' + PORT);
 });
