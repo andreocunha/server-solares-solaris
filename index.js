@@ -10,6 +10,9 @@ const io = require('socket.io')(server, {
 });
 const PORT = process.env.PORT || 4000;
 
+// import boats from json file
+const boats = require('./boats.json');
+
 // const io = require("socket.io")(PORT, {
 //     cors: {
 //         origin: '*',
@@ -18,6 +21,10 @@ const PORT = process.env.PORT || 4000;
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
+});
+
+app.get('/boats', (req, res) => {
+    res.status(200).json(boats);
 });
 
 let dbArray = [];
