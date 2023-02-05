@@ -125,14 +125,14 @@ io.on("connection", socket => {
     // let randomData = `[00,-22.90${Math.floor(Math.random() * 10)}807,-42.034${Math.floor(Math.random() * 10)}74,00.2];[03,-22.905594,-42.034946,00.4];[04,-22.907294,-42.034946,00.4];01/01/99 00:4${Math.floor(Math.random() * 10)}:02`
     // updateData(randomData);
 
-    // wait 5 seconds to send the data to the client
+    // wait 3 seconds to send the data to the client
     setTimeout(() => {
         socket.emit("info", dbObject);
         socket.emit("bandeiras", bandeiras);
-    }, 4000);
+    }, 3000);
 
     socket.on('newinfo', data => {
-        // console.log(data);
+        console.log(data);
         let result = verifyData(data);
         dbObject = convertStringToObject(result);
         io.emit('info', dbObject);
